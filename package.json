@@ -1,6 +1,49 @@
 {
+  "name": "codecov-mcp-server",
+  "version": "0.1.2",
+  "description": "A Codecov Model Context Protocol server",
+  "keywords": [
+    "mcp",
+    "codecov"
+  ],
+  "homepage": "https://github.com/stedwick/codecov-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/stedwick/codecov-mcp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/stedwick/codecov-mcp.git"
+  },
+  "license": "ISC",
+  "author": "Philip Brocoum",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "codecov-mcp-server": "build/index.js"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\"",
+    "prepare": "npm run build",
+    "watch": "tsc --watch",
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "test": "jest --coverage --passWithNoTests"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "0.6.0"
+  },
   "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.26.0",
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.11.24",
+    "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
-    "jest-junit": "^16.0.0"
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.8.2"
   }
 }
