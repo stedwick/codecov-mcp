@@ -29,12 +29,13 @@ jobs:
         run: npx jest --coverage --passWithNoTests
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
-        working-directory: codecov-server
+        with:
+          directory: codecov-serverd
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Upload test results to Codecov
-        working-directory: codecov-server
         if: ${{ !cancelled() }}
         uses: codecov/test-results-action@v1
         with:
+          directory: codecov-serverd
           token: ${{ secrets.CODECOV_TOKEN }}
