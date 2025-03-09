@@ -1,5 +1,5 @@
 name: Jest and Codecov
-run-name: ${{ github.actor }} is running ${{ github.workflow }} on ${{ github.repository }}
+run-name: ${{ github.actor }} is running ${{ github.workflow }}
 on: [push]
 
 jobs:

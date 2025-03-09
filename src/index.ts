@@ -12,6 +12,9 @@ import {
   ListPromptsRequestSchema,
   ListToolsRequestSchema
 } from "@modelcontextprotocol/sdk/types.js";
+import { getCommitCoverageTotals } from './coverage.js';
+import { apiKey } from './tools/args.js';
+import { gitInfo } from './tools/git.js';
 
 /**
  * Create an MCP server
@@ -49,18 +52,23 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
   };
 });
 
+
 /**
  * Handler for tool execution.
  * Implements the tools for working with test coverage data.
  */
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   switch (request.params.name) {
-    // TODO
     case "get_commit_coverage_totals": {
+      const data = await getCommitCoverageTotals({
+        gitInfo,
+        apiKey
+      });
+
       return {
         content: [{
           type: "text",
-          text: `Files with lowest test coverage coverage`
+          text: JSON.stringify(data, null, 2)
         }]
       };
     }
