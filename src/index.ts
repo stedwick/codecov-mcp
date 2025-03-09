@@ -135,7 +135,6 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
  * This allows the server to communicate via standard input/output streams.
  */
 async function main() {
-  console.log("Starting Codecov MCP server...");
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
