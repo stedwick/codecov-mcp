@@ -1,29 +1,56 @@
-# server MCP Server
+# Codecov MCP Server
 
-A Model Context Protocol server
+A Codecov Model Context Protocol server in TypeScript.
 
-This is a TypeScript-based MCP server that implements a simple notes system. It demonstrates core MCP concepts by providing:
-
-- Resources representing text notes with URIs and metadata
-- Tools for creating new notes
-- Prompts for generating summaries of notes
+- Tools for finding where your codebase is lacking tests.
+- Prompts for suggesting which tests to write, and then writing them.
 
 ## Features
 
 ### Resources
-- List and access notes via `note://` URIs
-- Each note has a title, content and metadata
-- Plain text mime type for simple content access
+- None yet
 
 ### Tools
-- `create_note` - Create new text notes
-  - Takes title and content as required parameters
-  - Stores note in server state
+- `get_commit_coverage_totals` - Returns the coverage totals for a given commit and the
+coverage totals broken down by file.
 
 ### Prompts
-- `summarize_notes` - Generate a summary of all stored notes
-  - Includes all note contents as embedded resources
-  - Returns structured prompt for LLM summarization
+- `suggest_tests` - Suggests tests to write based on Codecov report.
+- `write_suggested_tests` - Write the suggested tests.
+
+## Installation
+
+No need to install anything, just run with `npx` and put in your Codecov API key from [here](https://app.codecov.io/account/) - Go to Settings -> Access.
+
+Cursor command: `npx codecov-mcp-server --api-key=XXX`
+
+To use with Claude (or any AI), add the server config:
+
+```json
+{
+  "mcpServers": {
+    "codecov-mcp-server": {
+      "command": "npx",
+      "args": [
+        "codecov-mcp-server"
+      ],
+      "env": [
+        "CODECOV_API_KEY": "XXX"
+      ]
+    }
+  }
+}
+```
+
+### Debugging
+
+Since MCP servers communicate over stdio, debugging can be challenging. We recommend using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector), which is available as a package script:
+
+```bash
+npm run inspector
+```
+
+The Inspector will provide a URL to access debugging tools in your browser.
 
 ## Development
 
@@ -41,30 +68,3 @@ For development with auto-rebuild:
 ```bash
 npm run watch
 ```
-
-## Installation
-
-To use with Claude Desktop, add the server config:
-
-On MacOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
-
-```json
-{
-  "mcpServers": {
-    "server": {
-      "command": "/path/to/server/build/index.js"
-    }
-  }
-}
-```
-
-### Debugging
-
-Since MCP servers communicate over stdio, debugging can be challenging. We recommend using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector), which is available as a package script:
-
-```bash
-npm run inspector
-```
-
-The Inspector will provide a URL to access debugging tools in your browser.

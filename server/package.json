@@ -1,11 +1,11 @@
 {
-  "name": "server",
+  "name": "codecov-mcp-server",
   "version": "0.1.0",
-  "description": "A Model Context Protocol server",
+  "description": "A Codecov Model Context Protocol server",
   "private": true,
   "type": "module",
   "bin": {
-    "server": "./build/index.js"
+    "codecov-mcp-server": "./build/index.js"
   },
   "files": [
     "build"
