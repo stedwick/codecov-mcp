@@ -1,6 +1,6 @@
 {
   "name": "codecov-mcp-server",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Codecov Model Context Protocol server",
   "keywords": [
     "mcp",
