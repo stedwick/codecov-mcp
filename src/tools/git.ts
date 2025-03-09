@@ -1,8 +1,9 @@
-import { execSync } from 'child_process';
 import { type GitInfo } from '../types/git.types.js';
+import { gitUrl } from './args.js';
 
 function getGitRemoteUrl(): string {
-  return execSync('git remote get-url origin', { encoding: 'utf8' }).trim();
+  // return execSync('git remote get-url origin', { encoding: 'utf8' }).trim();
+  return gitUrl;
 }
 
 function parseGitUrl(remoteUrl: string): GitInfo {

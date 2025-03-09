@@ -22,7 +22,9 @@ coverage totals broken down by file.
 
 No need to install anything, just run with `npx` and put in your Codecov API key from [here](https://app.codecov.io/account/) - Go to Settings -> Access.
 
-Cursor command: `npx -y codecov-mcp-server --api-key XXX`
+And git url: `git remote get-url origin`
+
+Cursor command: `npx -y codecov-mcp-server --api-key XXX --git-url XXX`
 
 To use with Claude (or any AI), add the server config:
 
@@ -33,11 +35,12 @@ To use with Claude (or any AI), add the server config:
       "command": "npx",
       "args": [
         "-y",
-        "codecov-mcp-server"
+        "codecov-mcp-server",
       ],
-      "env": [
-        "CODECOV_API_KEY": "XXX"
-      ]
+      "env": {
+        "CODECOV_API_KEY": "XXX",
+        "GIT_URL": "XXX"
+      }
     }
   }
 }
