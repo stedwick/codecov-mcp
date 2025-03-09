@@ -10,6 +10,8 @@
   □ OAuth (requires separate setup script)
   □ Other credentials
 
+If any tools are missing, like node, activate them in the terminal using pkgx. For example, to activate node use eval `"$(pkgx +nodejs.org@20)"`. This only has to be done once per terminal.
+
 ## Step 2: Implementation (ACT MODE)
 1. Bootstrap
    - For web services, JavaScript integration, or Node.js environments:
