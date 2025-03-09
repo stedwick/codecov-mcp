@@ -1,6 +1,12 @@
-const { execSync } = require('child_process');
+import { parseGitUrl } from './git.js';
 
-test('git remote get-url origin', () => {
-    const output = execSync('git remote get-url origin').toString().trim();
-    expect(output).toMatch(/^(https:\/\/|git@).*\.git$/);
+describe('parseGitUrl', () => {
+    test('parses HTTPS GitHub URL', () => {
+        const result = parseGitUrl('https://github.com/owner/repo.git');
+        expect(result).toEqual({
+            service: 'github',
+            owner: 'owner',
+            repo: 'repo'
+        });
+    });
 });

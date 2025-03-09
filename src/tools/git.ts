@@ -1,9 +1,11 @@
 import { execSync } from 'child_process';
 import { type GitInfo } from '../types/git.types.js';
 
-export function getCurrentGitInfo(): GitInfo {
-  const remoteUrl = execSync('git remote get-url origin', { encoding: 'utf8' }).trim();
+function getGitRemoteUrl(): string {
+  return execSync('git remote get-url origin', { encoding: 'utf8' }).trim();
+}
 
+function parseGitUrl(remoteUrl: string): GitInfo {
   // Detect service from URL
   let service: GitInfo['service'] = 'unknown';
   if (remoteUrl.includes('github.com')) {
@@ -29,6 +31,11 @@ export function getCurrentGitInfo(): GitInfo {
   };
 }
 
+function getCurrentGitInfo(): GitInfo {
+  const remoteUrl = getGitRemoteUrl();
+  return parseGitUrl(remoteUrl);
+}
+
 const gitInfo = getCurrentGitInfo();
 
-export { gitInfo };
+export { gitInfo, parseGitUrl };
