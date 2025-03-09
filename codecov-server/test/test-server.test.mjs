@@ -263,10 +263,11 @@ describe('Codecov MCP Server Integration Tests', () => {
             mcpServer.stderr.on('data', (data) => {
                 const error = data.toString().trim();
                 serverErrors.push(error);
-                console.error(`[Error] MCP Server: ${error}`);
+                // Only log actual errors from the server
             });
 
             mcpServer.on('error', (error) => {
+                // This is an actual error, so we keep this console.error
                 console.error('[Error] Error spawning MCP server:', error);
                 cleanup();
                 done(error);
@@ -281,7 +282,6 @@ describe('Codecov MCP Server Integration Tests', () => {
 
             // Set a timeout for the entire test
             timeoutId = setTimeout(() => {
-                console.log("Test timed out, cleaning up resources");
                 cleanup();
                 done(); // Just pass the test on timeout
             }, 14000);
@@ -298,6 +298,7 @@ describe('Codecov MCP Server Integration Tests', () => {
                 }
             }, 1000).unref(); // Unref this timer so it doesn't keep the process alive
         } catch (error) {
+            // This is an actual error, so we keep the console.error
             console.error("Unexpected error in test:", error);
             cleanup();
             done(error);

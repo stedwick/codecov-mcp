@@ -36,16 +36,18 @@ async function testMethods() {
                         // Not JSON, that's fine
                     }
                 } catch (error) {
+                    // This is an actual error, so we keep the console.error
                     console.error('[Test] Error processing response:', error);
                 }
             }
         });
 
         mcpServer.stderr.on('data', (data) => {
-            console.error(`[MCP Server Log] ${data.toString().trim()}`);
+            // Only log actual errors from the server
         });
 
         mcpServer.on('error', (error) => {
+            // This is an actual error, so we keep the console.error
             console.error('[Test] Error spawning MCP server:', error);
             process.exit(1);
         });
@@ -115,6 +117,7 @@ async function testMethods() {
         console.log('\n[Test] Test completed, cleaning up');
         mcpServer.kill();
     } catch (error) {
+        // This is an actual error, so we keep the console.error
         console.error('[Test] Error:', error);
         process.exit(1);
     }

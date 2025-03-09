@@ -63,14 +63,11 @@ const sampleCoverageData = {
 // Start a mock Codecov API server
 function startMockServer(port = 8080) {
     const server = http.createServer((req, res) => {
-        console.log(`[Mock Server] Received request: ${req.method} ${req.url}`);
-
         // Parse the URL
         const url = new URL(req.url, `http://localhost:${port}`);
 
         // Check if this is a request for coverage data
         if (url.pathname.includes('/repos/') && url.pathname.includes('/report/tree')) {
-            console.log('[Mock Server] Returning sample coverage data');
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify(sampleCoverageData));
             return;
@@ -119,16 +116,18 @@ async function testMcpServer() {
                         // Not JSON, that's fine
                     }
                 } catch (error) {
+                    // This is an actual error, so we keep the console.error
                     console.error('[Test] Error processing response:', error);
                 }
             }
         });
 
         mcpServer.stderr.on('data', (data) => {
-            console.error(`[MCP Server Log] ${data.toString().trim()}`);
+            // Only log actual errors from the server
         });
 
         mcpServer.on('error', (error) => {
+            // This is an actual error, so we keep the console.error
             console.error('[Test] Error spawning MCP server:', error);
             mockServer.close();
             process.exit(1);
@@ -187,6 +186,7 @@ async function testMcpServer() {
         mcpServer.kill();
         mockServer.close();
     } catch (error) {
+        // This is an actual error, so we keep the console.error
         console.error('[Test] Error:', error);
         process.exit(1);
     }

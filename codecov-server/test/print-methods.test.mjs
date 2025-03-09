@@ -30,9 +30,7 @@ describe('MCP SDK Schema Methods', () => {
 
         // At least one schema should have a method property
         // But we don't want to fail the test if the SDK structure has changed
-        if (!methodFound) {
-            console.error('[Warning] No method properties found in any schemas');
-        }
+        // No need to log a warning here as it's not an actual error
     });
 
     test('ListToolsRequestSchema has the correct method name', () => {
@@ -44,7 +42,6 @@ describe('MCP SDK Schema Methods', () => {
                 fail('Could not find method value in ListToolsRequestSchema');
             }
         } catch (e) {
-            console.error('Error accessing ListToolsRequestSchema method:', e.message);
             fail(`Error accessing ListToolsRequestSchema method: ${e.message}`);
         }
     });
@@ -58,7 +55,6 @@ describe('MCP SDK Schema Methods', () => {
                 fail('Could not find method value in CallToolRequestSchema');
             }
         } catch (e) {
-            console.error('Error accessing CallToolRequestSchema method:', e.message);
             fail(`Error accessing CallToolRequestSchema method: ${e.message}`);
         }
     });

@@ -27,7 +27,6 @@ describe('MCP SDK Method Names', () => {
                 fail('Could not find method value in ListToolsRequestSchema');
             }
         } catch (error) {
-            console.error('Error accessing ListToolsRequestSchema method:', error);
             fail(`Error accessing ListToolsRequestSchema method: ${error.message}`);
         }
     });
@@ -55,7 +54,6 @@ describe('MCP SDK Method Names', () => {
                 fail('Could not find method value in CallToolRequestSchema');
             }
         } catch (error) {
-            console.error('Error accessing CallToolRequestSchema method:', error);
             fail(`Error accessing CallToolRequestSchema method: ${error.message}`);
         }
     });

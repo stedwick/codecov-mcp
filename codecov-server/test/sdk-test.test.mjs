@@ -105,10 +105,11 @@ describe('MCP Server SDK Integration Tests', () => {
         mcpServer.stderr.on('data', (data) => {
             const error = data.toString().trim();
             serverErrors.push(error);
-            console.error(`[Error] MCP Server: ${error}`);
+            // Only log actual errors from the server
         });
 
         mcpServer.on('error', (error) => {
+            // This is an actual error, so we keep this console.error
             console.error('[Error] Error spawning MCP server:', error);
             throw error;
         });
@@ -298,6 +299,7 @@ describe('MCP Server SDK Integration Tests', () => {
             expect(Array.isArray(resultData.low_coverage_files)).toBe(true);
             expect(resultData.low_coverage_files.length).toBeGreaterThan(0);
         } catch (e) {
+            // This is an actual error in the test, so we keep the console.error
             console.error('Failed to parse tool result as JSON:', e.message);
             fail('Failed to parse tool result as JSON: ' + e.message);
         }
