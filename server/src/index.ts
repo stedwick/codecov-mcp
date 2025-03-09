@@ -39,7 +39,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     tools: [
       {
         name: "get_commit_coverage_totals",
-        description: "Returns the coverage totals for a given commit and the coverage totals broken down by file",
+        description: "Returns the Codecov coverage totals for a given commit and the coverage totals broken down by file",
         inputSchema: {
           type: "object",
           properties: {},
@@ -55,6 +55,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
  */
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   switch (request.params.name) {
+    // TODO
     case "get_commit_coverage_totals": {
       return {
         content: [{
@@ -94,6 +95,7 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
  */
 server.setRequestHandler(GetPromptRequestSchema, async (request) => {
   switch (request.params.name) {
+    // TODO
     case "suggest_tests": {
       return {
         messages: [
@@ -108,6 +110,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
       };
     }
 
+    // TODO
     case "write_suggested_tests": {
       return {
         messages: [
@@ -132,6 +135,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
  * This allows the server to communicate via standard input/output streams.
  */
 async function main() {
+  console.log("Starting Codecov MCP server...");
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
