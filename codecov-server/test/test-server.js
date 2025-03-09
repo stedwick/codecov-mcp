@@ -162,7 +162,7 @@ async function testMcpServer() {
         const testInput = {
             jsonrpc: "2.0",
             id: "1",
-            method: "call_tool",
+            method: "tools/call",
             params: {
                 name: "find_low_coverage_files",
                 arguments: {

@@ -59,14 +59,15 @@ async function testMethods() {
 
         // Try different method names for listing tools
         const methodsToTry = [
-            'list_tools',
-            'listTools',
-            'list-tools',
-            'ListTools',
-            'get_tools',
-            'getTools',
-            'get-tools',
-            'GetTools'
+            'tools/list',  // Correct method name
+            'list_tools',  // Incorrect method name
+            'listTools',   // Incorrect method name
+            'list-tools',  // Incorrect method name
+            'ListTools',   // Incorrect method name
+            'get_tools',   // Incorrect method name
+            'getTools',    // Incorrect method name
+            'get-tools',   // Incorrect method name
+            'GetTools'     // Incorrect method name
         ];
 
         for (const method of methodsToTry) {
@@ -86,8 +87,31 @@ async function testMethods() {
             await new Promise(resolve => setTimeout(resolve, 500));
         }
 
+        // Try the correct method name for calling tools
+        console.log(`\n[Test] Trying method: tools/call`);
+        const callToolRequest = {
+            jsonrpc: "2.0",
+            id: "tools/call",
+            method: "tools/call",
+            params: {
+                name: "find_low_coverage_files",
+                arguments: {
+                    token: "test_token",
+                    service: "github",
+                    owner_username: "test_owner",
+                    repo_name: "test_repo",
+                    min_lines: 10,
+                    threshold: 50
+                }
+            }
+        };
+
+        console.log('[Test] Sending request:');
+        console.log(JSON.stringify(callToolRequest, null, 2));
+        mcpServer.stdin.write(JSON.stringify(callToolRequest) + '\n');
+
         // Wait for responses and then clean up
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
         console.log('\n[Test] Test completed, cleaning up');
         mcpServer.kill();
     } catch (error) {

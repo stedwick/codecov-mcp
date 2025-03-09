@@ -1,6 +1,6 @@
-const { spawn } = require('child_process');
-const path = require('path');
-const http = require('http');
+import { spawn } from 'child_process';
+import path from 'path';
+import http from 'http';
 
 // Sample coverage data that mimics Codecov API response
 const sampleCoverageData = {

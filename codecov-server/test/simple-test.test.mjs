@@ -1,6 +1,6 @@
-const http = require('http');
-const { spawn } = require('child_process');
-const path = require('path');
+import http from 'http';
+import { spawn } from 'child_process';
+import path from 'path';
 
 // Sample coverage data that mimics Codecov API response
 const sampleCoverageData = {
@@ -137,7 +137,7 @@ describe('Simple MCP Server Tests', () => {
         const listToolsRequest = {
             jsonrpc: "2.0",
             id: "list-tools",
-            method: "list_tools",
+            method: "tools/list",
             params: {}
         };
 
@@ -195,7 +195,7 @@ describe('Simple MCP Server Tests', () => {
         const callToolRequest = {
             jsonrpc: "2.0",
             id: "call-tool",
-            method: "call_tool",
+            method: "tools/call",
             params: {
                 name: "find_low_coverage_files",
                 arguments: {

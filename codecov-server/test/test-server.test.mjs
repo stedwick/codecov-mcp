@@ -1,8 +1,8 @@
-const http = require('http');
-const { spawn } = require('child_process');
-const { exec } = require('child_process');
-const { promisify } = require('util');
-const path = require('path');
+import http from 'http';
+import { spawn } from 'child_process';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import path from 'path';
 
 const execPromise = promisify(exec);
 
@@ -172,7 +172,7 @@ describe('Codecov MCP Server Integration Tests', () => {
         const testInput = {
             jsonrpc: "2.0",
             id: "1",
-            method: "call_tool",
+            method: "tools/call",
             params: {
                 name: "find_low_coverage_files",
                 arguments: {

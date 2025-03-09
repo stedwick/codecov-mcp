@@ -1,4 +1,4 @@
-const mcpTypes = require('@modelcontextprotocol/sdk/types.js');
+import * as mcpTypes from '@modelcontextprotocol/sdk/types.js';
 
 describe('MCP SDK Schema Methods', () => {
     test('MCP SDK schemas have expected method properties', () => {
@@ -35,35 +35,31 @@ describe('MCP SDK Schema Methods', () => {
         }
     });
 
-    test('ListToolsRequestSchema has a method property', () => {
+    test('ListToolsRequestSchema has the correct method name', () => {
         try {
             const methodValue = mcpTypes.ListToolsRequestSchema._def?.shape()?.method?._def?.value;
             if (methodValue) {
-                expect(methodValue).toBeDefined();
+                expect(methodValue).toBe('tools/list');
             } else {
-                // Pass the test even if we can't find the exact property
-                expect(true).toBe(true);
+                fail('Could not find method value in ListToolsRequestSchema');
             }
         } catch (e) {
             console.error('Error accessing ListToolsRequestSchema method:', e.message);
-            // Even if we can't access it directly, we shouldn't fail the test
-            expect(true).toBe(true);
+            fail(`Error accessing ListToolsRequestSchema method: ${e.message}`);
         }
     });
 
-    test('CallToolRequestSchema has a method property', () => {
+    test('CallToolRequestSchema has the correct method name', () => {
         try {
             const methodValue = mcpTypes.CallToolRequestSchema._def?.shape()?.method?._def?.value;
             if (methodValue) {
-                expect(methodValue).toBeDefined();
+                expect(methodValue).toBe('tools/call');
             } else {
-                // Pass the test even if we can't find the exact property
-                expect(true).toBe(true);
+                fail('Could not find method value in CallToolRequestSchema');
             }
         } catch (e) {
             console.error('Error accessing CallToolRequestSchema method:', e.message);
-            // Even if we can't access it directly, we shouldn't fail the test
-            expect(true).toBe(true);
+            fail(`Error accessing CallToolRequestSchema method: ${e.message}`);
         }
     });
 });

@@ -147,11 +147,11 @@ async function testMcpServer() {
         const listToolsRequest = {
             jsonrpc: "2.0",
             id: "list-tools",
-            method: "list_tools",
+            method: "tools/list",
             params: {}
         };
 
-        console.log('[Test] Sending list_tools request:');
+        console.log('[Test] Sending tools/list request:');
         console.log(JSON.stringify(listToolsRequest, null, 2));
         mcpServer.stdin.write(JSON.stringify(listToolsRequest) + '\n');
 
@@ -163,7 +163,7 @@ async function testMcpServer() {
         const callToolRequest = {
             jsonrpc: "2.0",
             id: "call-tool",
-            method: "call_tool",
+            method: "tools/call",
             params: {
                 name: "find_low_coverage_files",
                 arguments: {
@@ -177,7 +177,7 @@ async function testMcpServer() {
             }
         };
 
-        console.log('[Test] Sending call_tool request:');
+        console.log('[Test] Sending tools/call request:');
         console.log(JSON.stringify(callToolRequest, null, 2));
         mcpServer.stdin.write(JSON.stringify(callToolRequest) + '\n');
 

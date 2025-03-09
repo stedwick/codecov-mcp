@@ -1,4 +1,4 @@
-const mcpTypes = require('@modelcontextprotocol/sdk/types.js');
+import * as mcpTypes from '@modelcontextprotocol/sdk/types.js';
 
 describe('MCP SDK Types Inspection', () => {
     test('MCP SDK exports expected types', () => {
