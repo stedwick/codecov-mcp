@@ -18,6 +18,7 @@ Recent work has focused on ensuring the server correctly implements the MCP prot
 - Fixed issues with JSON-RPC method names (using `tools/list` and `tools/call` instead of `list_tools` and `call_tool`)
 - Created test scripts to verify server functionality
 - Implemented a mock Codecov API server for testing
+- Cleaned up test files by removing unnecessary console.error statements, keeping only those that log actual errors
 
 ## Next Steps
 The following areas are being considered for future development:
@@ -31,6 +32,12 @@ The following areas are being considered for future development:
 7. **Additional Authentication Methods**: Support alternative authentication methods beyond API tokens
 
 ## Active Decisions and Considerations
+
+### Logging Strategy
+The server now implements a more focused logging approach:
+- Console errors are only used for actual error conditions
+- Informational and debug logs are handled separately from error logs
+- Test files have been cleaned up to only log actual errors, improving readability of test output
 
 ### Authentication
 Currently, the server uses a simple API token for authentication with Codecov. This approach was chosen for its simplicity and ease of implementation. Alternative authentication methods may be considered in the future.
