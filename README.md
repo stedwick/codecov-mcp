@@ -3,7 +3,7 @@
 A Codecov Model Context Protocol server in TypeScript.
 
 - Tools for finding where your codebase is lacking tests.
-- Prompts for suggesting which tests to write, and then writing them.
+- Prompts for suggesting which tests to write.
 
 ## Features
 
@@ -12,15 +12,16 @@ A Codecov Model Context Protocol server in TypeScript.
 
 ### Tools
 - `get_commit_coverage_totals` - Returns the coverage totals for a given commit and the
-coverage totals broken down by file.
+coverage totals broken down by file. Uses [this api](https://docs.codecov.com/reference/repos_totals_retrieve).
 
 ### Prompts
 - `suggest_tests` - Suggests tests to write based on Codecov report.
-- `write_suggested_tests` - Write the suggested tests.
 
 ## Installation
 
-No need to install anything, just run with `npx` and put in your Codecov API key from [here](https://app.codecov.io/account/) - Go to Settings -> Access.
+Usage: Ask your AI agent to "run the get_commit_coverage_totals tool" in your chat.
+
+Configure: No need to install anything, just run with `npx` and put in your Codecov API key from [here](https://app.codecov.io/account/) - Go to Settings -> Access.
 
 And git url: `git remote get-url origin`
 

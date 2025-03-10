@@ -89,10 +89,6 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
         name: "suggest_tests",
         description: "Suggests tests to write based on Codecov report"
       },
-      {
-        name: "write_suggested_tests",
-        description: "Write the suggested tests"
-      }
     ]
   };
 });
@@ -103,7 +99,6 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
  */
 server.setRequestHandler(GetPromptRequestSchema, async (request) => {
   switch (request.params.name) {
-    // TODO
     case "suggest_tests": {
       return {
         messages: [
@@ -111,22 +106,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
             role: "user",
             content: {
               type: "text",
-              text: `Please suggest tests that should be written for these files with low test coverag. For each file, suggest specific test cases that would help improve coverage.`
-            }
-          }
-        ]
-      };
-    }
-
-    // TODO
-    case "write_suggested_tests": {
-      return {
-        messages: [
-          {
-            role: "user",
-            content: {
-              type: "text",
-              text: `Please write tests for the file which currently has low coverage. Write complete, working test code that would help improve the coverage for this file.`
+              text: `Please suggest tests that should be written for these files with low test coverag. First, run the get_commit_coverage_totals tool. Then, for the 10 most important files, suggest specific test cases that would help improve coverage.`
             }
           }
         ]
