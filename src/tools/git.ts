@@ -32,11 +32,11 @@ function parseGitUrl(remoteUrl: string): GitInfo {
   };
 }
 
-// function getCurrentGitInfo(): GitInfo {
-//   const remoteUrl = getGitRemoteUrl();
-//   return parseGitUrl(remoteUrl);
-// }
+function getCurrentGitInfo(): GitInfo {
+  const remoteUrl = getGitRemoteUrl();
+  return parseGitUrl(remoteUrl);
+}
 
-// const gitInfo = getCurrentGitInfo();
+const gitInfo = getCurrentGitInfo();
 
-export { parseGitUrl };
+export { gitInfo, parseGitUrl };
