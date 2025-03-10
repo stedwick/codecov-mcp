@@ -14,7 +14,7 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { getCommitCoverageTotals } from './coverage.js';
 import { apiKey } from './tools/args.js';
-import { gitInfo } from './tools/git.js';
+import { parseGitUrl } from "./tools/git.js";
 
 /**
  * Create an MCP server
@@ -45,8 +45,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
         description: "Returns the Codecov coverage totals for a given commit and the coverage totals broken down by file",
         inputSchema: {
           type: "object",
-          properties: {},
-        }
+          properties: {
+            gitUrl: {
+              type: "string",
+              description: "The URL of the git repository"
+            }
+          },
+          required: ["gitUrl"]
+        },
       }
     ]
   };
@@ -60,6 +66,12 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
   switch (request.params.name) {
     case "get_commit_coverage_totals": {
+      const gitUrl = String(request.params.arguments?.gitUrl);
+      if (!gitUrl) {
+        throw new Error("gitUrl is required");
+      }
+
+      const gitInfo = parseGitUrl(gitUrl);
       const data = await getCommitCoverageTotals({
         gitInfo,
         apiKey
@@ -89,10 +101,6 @@ server.setRequestHandler(ListPromptsRequestSchema, async () => {
         name: "suggest_tests",
         description: "Suggests tests to write based on Codecov report"
       },
-      {
-        name: "write_suggested_tests",
-        description: "Write the suggested tests"
-      }
     ]
   };
 });
@@ -111,25 +119,21 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
             role: "user",
             content: {
               type: "text",
-              text: `Please suggest tests that should be written for these files with low test coverag. For each file, suggest specific test cases that would help improve coverage.`
-            }
-          }
-        ]
-      };
-    }
+              text: `
+    Using the Codecov MCP, analyze the test coverage data by calling get_commit_coverage_totals. 
 
-    // TODO
-    case "write_suggested_tests": {
-      return {
-        messages: [
-          {
-            role: "user",
-            content: {
-              type: "text",
-              text: `Please write tests for the file which currently has low coverage. Write complete, working test code that would help improve the coverage for this file.`
+    Please examine the results and provide:
+    1. A list of up to 10 critical files with the lowest test coverage percentages
+    2. For each identified file with low coverage:
+       - A bulleted list of suggested test cases that would improve coverage
+
+    Focus on critical paths and complex logic that would benefit most from additional testing.
+
+    Please format the response as a clear, actionable list of test recommendations.`
             }
           }
-        ]
+        ],
+        tools: ["get_commit_coverage_totals"]
       };
     }
 

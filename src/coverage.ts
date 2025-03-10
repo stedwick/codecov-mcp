@@ -6,11 +6,17 @@ export interface CoverageParams {
 }
 
 export async function getCommitCoverageTotals({ gitInfo, apiKey }: CoverageParams) {
-  const response = await fetch(`https://api.codecov.io/api/v2/${gitInfo.service}/${gitInfo.owner}/repos/${gitInfo.repo}/totals`, {
-    headers: {
-      'Authorization': `Bearer ${apiKey}`
-    }
-  });
+  const baseUrl = 'https://api.codecov.io/api/v2';
+  const service = encodeURIComponent(gitInfo.service);
+  const owner = encodeURIComponent(gitInfo.owner);
+  const repo = encodeURIComponent(gitInfo.repo);
+
+  const url = `${baseUrl}/${service}/${owner}/repos/${repo}/totals`;
+  const headers: HeadersInit = {};
+  if (apiKey) {
+    headers['Authorization'] = `Bearer ${apiKey}`;
+  }
+  const response = await fetch(url, { headers });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch Codecov coverage totals: ${response.statusText}`);
