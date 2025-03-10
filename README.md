@@ -25,6 +25,7 @@ No need to install anything, just run with `npx` and put in your Codecov API key
 And git url: `git remote get-url origin`
 
 Cursor command: `npx -y codecov-mcp-server --api-key XXX --git-url XXX`
+(On Windows) Cursor command: `cmd.exe /c npx -y codecov-mcp-server --api-key XXX --git-url XXX`
 
 To use with Claude (or any AI), add the server config:
 
